@@ -1,0 +1,4 @@
+# IOBluetooth bindings. <12 because PyObjC 12 needs Python 3.10+ (macOS ships 3.9).
+pyobjc-framework-IOBluetooth>=10,<12
+platformio
+pyserial>=3.5   # rename_hc06.py talks to the Mega over USB
