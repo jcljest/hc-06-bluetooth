@@ -60,7 +60,9 @@ need Python + PyObjC, which these machines don't have.
 - Committed and pushed db1af05.
 - Owner decisions: setup is CLI-only via a venv (no admin); one sketch file (PlatformIO `src_dir = student/AIIT_Bluetooth`), so `src/main.cpp`, `scripts/check_sketch_sync.py` and both sync hooks (project + user settings) were removed; students talk to the sensor with `hc06.py` in the venv (Chrome page kept as untested teacher extra). `requirements.txt` pyobjc upper pin dropped (uv supplies Python 3.12).
 - Verified in a scratch folder with isolated caches (nothing installed into the owner's setup): uv installer into a user dir, uv-managed Python 3.12.15, project zip via curl/unzip, `uv venv`, `uv pip install -r requirements.txt` (rerun prints `Checked 3 packages`), `import IOBluetooth` OK, `hc06.py --help` OK, fresh `pio ci` of the student folder SUCCESS (first-run toolchain download ~291 MB), the `sed` rename command (run twice), curl-downloaded files have no quarantine flag. `pio run` with the new `src_dir` builds in the repo. Not verifiable here: Bluetooth permission prompt, pairing, `--list`/`--send` against hardware.
-- README rewritten as copy-paste CLI steps 1–9, each with "✅ Look for" output text, plus IT allowlist (astral.sh, github.com, pypi, platformio registry), troubleshooting.
+- Committed and pushed 4b0c066.
+- Owner: instructions start from a repo already cloned in VS Code. README now starts with step 0 (`ls` check in VS Code terminal), drops download/`cd` steps, Bluetooth permission goes to Visual Studio Code, code edits happen in VS Code. IT list notes VS Code's first clone needs Git (Apple developer tools, may need admin).
+- (Earlier) README rewritten as copy-paste CLI steps 1–9, each with "✅ Look for" output text, plus IT allowlist (astral.sh, github.com, pypi, platformio registry), troubleshooting.
 
 ## Verification Evidence
 

@@ -18,13 +18,16 @@ Bluetooth pairing.
 
 - Setup is copy-paste Terminal commands. After each command, say exactly
   which text in the output proves it worked.
-- Never call `python3` or `git` directly: on a fresh Mac they open Apple's
+- Instructions start after the student has cloned the repo in VS Code and
+  opened it; commands run in VS Code's integrated terminal (project folder).
+  Don't add download/clone steps. Bluetooth permission is granted to
+  Visual Studio Code.
+- Never call `python3` directly: on a fresh Mac it opens Apple's
   developer-tools installer, which can need admin. Use `~/.local/bin/uv`
-  (installed per user) to get Python and make the venv, and `curl` + `unzip`
-  (built into macOS) to get the code.
+  (installed per user) to get Python and make the venv.
 - Everything Python runs from the project venv: `.venv/bin/python`,
   `.venv/bin/pio`.
-- The only GUI step is Bluetooth pairing (System Settings).
+- The only GUI steps are cloning in VS Code and Bluetooth pairing.
 - List any domain or permission IT has to allow.
 
 ## Other
