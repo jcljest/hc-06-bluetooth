@@ -1,85 +1,44 @@
-#include <Arduino.h>
-
-// HC-06 Bluetooth control for Arduino Mega 2560.
-// HC-06 on Serial1 (pin 19 RX1, pin 18 TX1). USB Serial is free for logging.
+// AIIT Bluetooth starter (Arduino Mega 2560 + HC-06)
 //
-// Bluetooth commands (one per line, case-insensitive):
-//   LED ON      turn on the LED on pin 3
-//   LED OFF     turn it off
-//   LED TOGGLE  flip it
-//   LED         report its state
-// Anything else is echoed back as "Mega got: <line>".
-// Every line is logged to USB Serial as "BT> <line>".
-// USB Serial -> HC-06: anything typed in Serial Monitor goes to the HC-06.
-// While Bluetooth is connected it is sent to the Mac; while disconnected the
-// HC-06 treats it as AT commands (see rename_hc06.py) and its replies are
-// logged to USB as "HC06> <reply>".
+// 1. Change SENSOR_NAME to your sensor's name.
+// 2. Write your code below. The Bluetooth parts live in the AIITBluetooth.h
+//    tab. Don't change that tab.
+// 3. Upload. Pair your sensor on the Mac (System Settings > Bluetooth,
+//    PIN 1234), then open connect.html in Chrome.
+//
+//   send("text")         sends a line to the Mac
+//   onMessage(message)   runs every time the Mac sends a line
 
-const long BT_BAUD = 9600;    // HC-06 factory default
-const long USB_BAUD = 115200;
+#include "AIITBluetooth.h"
+
+// 1-20 characters: letters, digits, - or _. No spaces.
+const char SENSOR_NAME[] = "AIIT-01";
+
 const int LED_PIN = 3;
 
-String line;
-unsigned long lastByteMs = 0;
-
-void setLed(bool on) {
-  digitalWrite(LED_PIN, on ? HIGH : LOW);
-}
-
-void reportLed() {
-  Serial1.println(digitalRead(LED_PIN) ? "LED is ON" : "LED is OFF");
-}
-
-void handleLine(String cmd) {
-  cmd.trim();
-  Serial.print("BT> ");
-  Serial.println(cmd);
-  cmd.toUpperCase();
-
-  if (cmd == "LED ON") {
-    setLed(true);
-    reportLed();
-  } else if (cmd == "LED OFF") {
-    setLed(false);
-    reportLed();
-  } else if (cmd == "LED TOGGLE") {
-    setLed(!digitalRead(LED_PIN));
-    reportLed();
-  } else if (cmd == "LED") {
-    reportLed();
-  } else {
-    Serial1.print("Mega got: ");
-    Serial1.println(cmd);
-  }
-}
-
 void setup() {
+  bluetoothBegin(SENSOR_NAME);  // keep this first
   pinMode(LED_PIN, OUTPUT);
-  setLed(false);
-  Serial.begin(USB_BAUD);
-  Serial1.begin(BT_BAUD);
-  Serial.println("hc06 LED control ready");
+  digitalWrite(LED_PIN, LOW);
 }
 
 void loop() {
-  while (Serial1.available()) {
-    char c = Serial1.read();
-    lastByteMs = millis();
-    if (c == '\n') {
-      handleLine(line);
-      line = "";
-    } else {
-      line += c;
-    }
-  }
-  // AT replies from the HC-06 itself ("OK", "OKsetname") have no newline.
-  // Show any unterminated text on USB once the HC-06 goes quiet.
-  if (line.length() > 0 && millis() - lastByteMs > 300) {
-    Serial.print("HC06> ");
-    Serial.println(line);
-    line = "";
-  }
-  while (Serial.available()) {
-    Serial1.write(Serial.read());
+  bluetoothUpdate();  // keep this; it checks for messages
+  // Your code here runs over and over. Avoid long delay() calls,
+  // or messages will wait until the delay ends.
+}
+
+void onMessage(String message) {
+  message.toUpperCase();
+  if (message == "LED ON") {
+    digitalWrite(LED_PIN, HIGH);
+    send("LED is ON");
+  } else if (message == "LED OFF") {
+    digitalWrite(LED_PIN, LOW);
+    send("LED is OFF");
+  } else if (message == "READ") {
+    send("A0 = " + String(analogRead(A0)));
+  } else {
+    send("I got: " + message);
   }
 }
