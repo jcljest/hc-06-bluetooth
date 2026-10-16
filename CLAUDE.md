@@ -1,33 +1,33 @@
 # hc-06-bluetooth: notes for Claude
 
-## Arduino IDE and PlatformIO versions must match
+## One copy of the sketch
 
-- `student/AIIT_Bluetooth/AIIT_Bluetooth.ino` (students, Arduino IDE) and
-  `src/main.cpp` (PlatformIO) are the same program and must stay
-  byte-identical. Whenever you change one, make the same change to the other
-  in the same turn.
-- Both include `student/AIIT_Bluetooth/AIITBluetooth.h`. There is one copy
-  of it; PlatformIO finds it through `build_flags` in `platformio.ini`.
-  Never copy it into `src/`.
-- A PostToolUse hook (`scripts/check_sketch_sync.py`) flags any edit that
-  leaves the two files different. Check by hand with
-  `python3 scripts/check_sketch_sync.py`.
-- After changing either, compile both:
-  `.venv/bin/pio run` and
-  `"/Applications/Arduino IDE.app/Contents/Resources/app/lib/backend/resources/arduino-cli" compile --fqbn arduino:avr:mega student/AIIT_Bluetooth`.
+- `student/AIIT_Bluetooth/` is the only firmware. PlatformIO builds it
+  directly (`src_dir` in `platformio.ini`); Arduino IDE opens the same folder.
+  Don't recreate `src/main.cpp`.
+- After changing the sketch, compile it: `.venv/bin/pio run`.
+- Students edit only `AIIT_Bluetooth.ino`. `AIITBluetooth.h` holds the HC-06
+  plumbing (rename on boot, line reading, `send()`).
 
-## Setup instructions assume a fresh school-managed Mac
+## Setup instructions: fresh school-managed Mac, CLI only
 
 Every setup step (README, student handouts) must work on a freshly installed,
 school-managed MacBook: no admin password, no Python or developer tools, no
-Homebrew, apps possibly only from the school's app store (Self Service), and
-network filtering or MDM policies that may block downloads, Bluetooth pairing
-or Chrome's serial access. Write numbered steps with a "you should see" check
-after each, and list anything IT has to allow.
+git, no Homebrew, and network filtering or MDM that may block downloads or
+Bluetooth pairing.
 
-## Student kit
+- Setup is copy-paste Terminal commands. After each command, say exactly
+  which text in the output proves it worked.
+- Never call `python3` or `git` directly: on a fresh Mac they open Apple's
+  developer-tools installer, which can need admin. Use `~/.local/bin/uv`
+  (installed per user) to get Python and make the venv, and `curl` + `unzip`
+  (built into macOS) to get the code.
+- Everything Python runs from the project venv: `.venv/bin/python`,
+  `.venv/bin/pio`.
+- The only GUI step is Bluetooth pairing (System Settings).
+- List any domain or permission IT has to allow.
 
-- Students edit only `AIIT_Bluetooth.ino`. `AIITBluetooth.h` holds the HC-06
-  plumbing (rename on boot, line reading, `send()`).
-- `student/connect.html` is the Chrome (Web Serial) page for talking to a
-  sensor. Don't publish it online without the owner's approval.
+## Other
+
+- `student/connect.html` is an untested Chrome (Web Serial) option. Don't
+  publish it online without the owner's approval.

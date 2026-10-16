@@ -1,4 +1,6 @@
-# IOBluetooth bindings. <12 because PyObjC 12 needs Python 3.10+ (macOS ships 3.9).
-pyobjc-framework-IOBluetooth>=10,<12
-platformio
-pyserial>=3.5   # rename_hc06.py talks to the Mega over USB
+# Install into the project venv (see README):
+#   ~/.local/bin/uv venv --python 3.12
+#   ~/.local/bin/uv pip install -r requirements.txt
+pyobjc-framework-IOBluetooth>=10   # hc06.py: Bluetooth link on macOS
+platformio                         # build + upload the Mega sketch
+pyserial>=3.5                      # rename_hc06.py (old firmware only)

@@ -41,16 +41,6 @@
             "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/track_changes.py\""
           }
         ]
-      },
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PROJECT_DIR}/scripts/check_sketch_sync.py\"",
-            "timeout": 10
-          }
-        ]
       }
     ],
     "Stop": [
