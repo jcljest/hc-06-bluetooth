@@ -12,7 +12,7 @@
 #include "AIITBluetooth.h"
 
 // 1-20 characters: letters, digits, - or _. No spaces.
-const char SENSOR_NAME[] = "AIIT-01";
+const char SENSOR_NAME[] = "AIIT-laij";
 
 const int LED_PIN = 3;
 

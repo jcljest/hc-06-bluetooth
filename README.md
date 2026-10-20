@@ -102,7 +102,7 @@ normal here.
 .venv/bin/python hc06.py --list
 ```
 If macOS asks to let **Visual Studio Code** use Bluetooth, click **Allow**
-and run the command again.
+and run the command again. If it asks for a PIN, enter `1234` (or `0000`).
 
 ✅ Look for: a line with your sensor's name, like
 `98-d3-…  AIIT-07  (not connected)`.
