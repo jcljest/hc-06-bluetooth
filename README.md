@@ -58,14 +58,14 @@ whether to use this environment, you can click **Yes** or ignore it.
 ## Every new sensor
 
 ### 3. Name your sensor
-Change `AIIT-07` to your own name before pasting: 1–20 letters, digits, `-`
+Change `AIIT-YOURNAME` to your own name before pasting: 1–20 letters, digits, `-`
 or `_`, no spaces.
 ```bash
-NAME=AIIT-07
+NAME=AIIT-YOURNAME
 sed -i '' "s/^const char SENSOR_NAME\[\] = \".*\";/const char SENSOR_NAME[] = \"$NAME\";/" student/AIIT_Bluetooth/AIIT_Bluetooth.ino
 grep '^const char SENSOR_NAME' student/AIIT_Bluetooth/AIIT_Bluetooth.ino
 ```
-✅ Look for: `const char SENSOR_NAME[] = "AIIT-07";` with **your** name.
+✅ Look for: `const char SENSOR_NAME[] = "AIIT-YOURNAME";` with **your** name.
 
 ### 4. Upload to the Mega
 Plug the Mega into the MacBook with a USB cable, then:
@@ -83,7 +83,7 @@ few minutes. Later uploads take seconds.
 ```bash
 .venv/bin/pio device monitor
 ```
-✅ Look for: `Sensor name: AIIT-07` (your name) and `Bluetooth ready.`
+✅ Look for: `Sensor name: AIIT-YOURNAME` (your name) and `Bluetooth ready.`
 
 Press `Ctrl+C` to leave the monitor.
 
@@ -105,7 +105,7 @@ If macOS asks to let **Visual Studio Code** use Bluetooth, click **Allow**
 and run the command again. If it asks for a PIN, enter `1234` (or `0000`).
 
 ✅ Look for: a line with your sensor's name, like
-`98-d3-…  AIIT-07  (not connected)`.
+`98-d3-…  AIIT-YOURNAME  (not connected)`.
 
 If the command just hangs: **System Settings → Privacy & Security →
 Bluetooth → Visual Studio Code** on, quit VS Code (`⌘Q`), reopen the project,
@@ -114,17 +114,17 @@ open a new terminal, and try again.
 ### 8. Send your first message
 Use your sensor's name:
 ```bash
-.venv/bin/python hc06.py --name AIIT-07 --send "LED ON"
+.venv/bin/python hc06.py --name AIIT-YOURNAME --send "LED ON"
 ```
 ✅ Look for: `Connected. The HC-06 LED should now be solid.` and then
 `LED is ON`. The LED on pin 3 lights up.
 
 Other commands:
 ```bash
-.venv/bin/python hc06.py --name AIIT-07 --send "LED OFF"   # LED is OFF
-.venv/bin/python hc06.py --name AIIT-07 --send "READ"      # A0 = <number>
-.venv/bin/python hc06.py --name AIIT-07                    # chat: type lines, Ctrl+C to quit
-.venv/bin/python hc06.py --name AIIT-07 --listen           # only receive
+.venv/bin/python hc06.py --name AIIT-YOURNAME --send "LED OFF"   # LED is OFF
+.venv/bin/python hc06.py --name AIIT-YOURNAME --send "READ"      # A0 = <number>
+.venv/bin/python hc06.py --name AIIT-YOURNAME                    # chat: type lines, Ctrl+C to quit
+.venv/bin/python hc06.py --name AIIT-YOURNAME --listen           # only receive
 ```
 
 ---
