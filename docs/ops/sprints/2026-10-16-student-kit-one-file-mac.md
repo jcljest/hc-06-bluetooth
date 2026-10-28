@@ -4,7 +4,7 @@ module: student-kit
 status: active
 health: yellow
 owner_session: null
-worktree: /Users/laij/Projects/hc-06-bluetooth
+worktree: .
 started: 2026-10-16
 updated: 2026-10-16
 base_commit: 5605f34

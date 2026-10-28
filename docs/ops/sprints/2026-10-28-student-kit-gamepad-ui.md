@@ -4,7 +4,7 @@ module: student-kit
 status: done
 health: green
 owner_session: null
-worktree: /Users/laij/Projects/hc-06-bluetooth
+worktree: .
 started: 2026-10-28
 updated: 2026-10-28
 base_commit: 626b995
@@ -94,7 +94,7 @@ Link('AIIT-NO-SUCH').open() -> "No paired device named AIIT-NO-SUCH. ... click R
 - Key auto-repeat (press + release/press pairs) -> one UP, one UP RELEASED.
 - Z/X map to A/B; focus loss releases held buttons; replies show as "← …";
   partial reply lines are buffered until the newline arrives.
-- SENSOR_NAME read from the sketch (AIIT-10-laij).
+- SENSOR_NAME read from the sketch (test sensor name).
 - The owner's local .venv (Apple Python 3.9, Tk 8.5) hangs on any Tk
   `update()`, even a bare window. uv's Python 3.12 (README step 2) works.
 - Screenshot not captured (no screen-recording permission), so the look is unchecked.
@@ -130,7 +130,7 @@ Link('AIIT-NO-SUCH').open() -> "No paired device named AIIT-NO-SUCH. ... click R
 - Unchecked: does IOBluetooth deliver data while Tk's event loop runs?
   (controller.py also calls hc06.pump(0) every 20 ms.)
 - The owner's current .venv is Apple Python 3.9; recreate it per README step 2.
-- 2026-10-28 hardware: AIIT-10-laij drops ~15 s after connecting, even with
+- 2026-10-28 hardware: the test sensor drops ~15 s after connecting, even with
   hc06.py holding RFCOMM open. In the macOS log (09:31), the RFCOMM channel
   opens at 39.6 s. After 10 s idle the link enters sniff mode (interval 800).
   Exactly 5 s later it's disconnected (STATUS 708 / reason 328). Python closed
