@@ -3,4 +3,4 @@
 #   ~/.local/bin/uv pip install -r requirements.txt
 pyobjc-framework-IOBluetooth>=10   # hc06.py: Bluetooth link on macOS
 platformio                         # build + upload the Mega sketch
-pyserial>=3.5                      # rename_hc06.py (old firmware only)
+pyserial>=3.5                      # teacher/name_sensor.py (reads the Mega log)

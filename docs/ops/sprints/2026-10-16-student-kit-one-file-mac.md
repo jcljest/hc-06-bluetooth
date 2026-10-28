@@ -63,6 +63,7 @@ need Python + PyObjC, which these machines don't have.
 - Committed and pushed 4b0c066.
 - Owner: instructions start from a repo already cloned in VS Code. README now starts with step 0 (`ls` check in VS Code terminal), drops download/`cd` steps, Bluetooth permission goes to Visual Studio Code, code edits happen in VS Code. IT list notes VS Code's first clone needs Git (Apple developer tools, may need admin).
 - (Earlier) README rewritten as copy-paste CLI steps 1–9, each with "✅ Look for" output text, plus IT allowlist (astral.sh, github.com, pypi, platformio registry), troubleshooting.
+- 2026-10-22: README "Adding your own code" expanded to "Writing your own code" (required skeleton, helper table, edit loop `pio run` → `pio run -t upload -t monitor` → `hc06.py`, millis() streaming example, start-over via git checkout). Added `.vscode/settings.json` (.ino as C++, C/C++ squiggles off). Verified: example and skeleton compile (`pio ci`, megaatmega2560); a missing-semicolon sketch fails with `AIIT_Bluetooth.ino:15:1: error`; repo `pio run` SUCCESS. Not hardware-tested. Uncommitted.
 
 ## Verification Evidence
 

@@ -1,0 +1,4 @@
+# Your sensor's name. Copy it exactly from the label on your sensor,
+# replacing AIIT-YOURNAME, then save (Cmd-S).
+# hc06.py and controller.py find your sensor by this name.
+SENSOR_NAME = AIIT-YOURNAME

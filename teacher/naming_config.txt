@@ -1,0 +1,4 @@
+# The Bluetooth name to give the next sensor: 1-20 letters, digits, - or _.
+# Replace AIIT-YOURNAME, save (Cmd-S), then run:
+#   .venv/bin/python teacher/name_sensor.py
+SENSOR_NAME = AIIT-YOURNAME

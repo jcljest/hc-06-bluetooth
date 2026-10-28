@@ -1,0 +1,7 @@
+{
+  // Show Arduino sketches (.ino) as C++ so VS Code colors the code.
+  "files.associations": { "*.ino": "cpp" },
+  // VS Code can't see the Arduino libraries, so its red underlines are wrong.
+  // The real check is `.venv/bin/pio run`.
+  "C_Cpp.errorSquiggles": "disabled"
+}

@@ -11,20 +11,25 @@ One-time setup:
   2. Run this script from Terminal, and allow Terminal under
      System Settings > Privacy & Security > Bluetooth when asked.
 
+The sensor's name comes from sensor_config.txt (SENSOR_NAME = ...), unless
+--name or --address is given.
+
 Usage:
     python hc06.py                      # interactive: type lines, see replies
     python hc06.py --send "LED ON"      # send one line, print any reply, exit
     python hc06.py --listen             # only print what the module sends
     python hc06.py --list               # list paired Bluetooth devices
-    python hc06.py --name MyBT          # module renamed with AT+NAME
+    python hc06.py --name MyBT          # a sensor other than the configured one
     python hc06.py --address 20-16-06-30-31-23
 """
 
 import argparse
 import queue
+import re
 import sys
 import threading
 import time
+from pathlib import Path
 
 try:
     import IOBluetooth
@@ -33,8 +38,15 @@ try:
 except ImportError:
     sys.exit("PyObjC is missing. Run: pip install -r requirements.txt")
 
-DEFAULT_NAME = "HC-06"
+CONFIG = Path(__file__).parent / "sensor_config.txt"
+PLACEHOLDER_NAME = "AIIT-YOURNAME"
+NO_NAME_MESSAGE = ("No sensor name yet. Open sensor_config.txt, replace "
+                   f"{PLACEHOLDER_NAME} with the name on your sensor's label, and save (Cmd-S).")
 DEFAULT_CHANNEL = 1  # HC-06 serves SPP on RFCOMM channel 1
+# After 10 s with no traffic macOS puts the link in sniff mode, which the HC-06
+# doesn't answer, and the link drops 5 s later. A blank line every few seconds
+# keeps it active; the sketch ignores blank lines.
+KEEPALIVE_SECONDS = 5
 kIOReturnSuccess = 0
 
 
@@ -60,6 +72,19 @@ class ChannelDelegate(NSObject):
 
     def rfcommChannelClosed_(self, channel):
         self.closed = True
+
+
+def configured_name(path=None):
+    """SENSOR_NAME from a config file (default sensor_config.txt), or None if
+    it's missing or still the placeholder."""
+    try:
+        text = (path or CONFIG).read_text()
+        m = re.search(r"^\s*SENSOR_NAME\s*=\s*(\S+)\s*$", text, re.MULTILINE)
+    except OSError:
+        return None
+    if not m or m.group(1) == PLACEHOLDER_NAME:
+        return None
+    return m.group(1)
 
 
 def paired_devices():
@@ -121,8 +146,7 @@ def stdin_reader(lines):
 
 def main():
     ap = argparse.ArgumentParser(description="HC-06 Bluetooth Classic terminal for macOS")
-    ap.add_argument("--name", default=DEFAULT_NAME,
-                    help=f"paired device name (default {DEFAULT_NAME})")
+    ap.add_argument("--name", help="paired device name (default: SENSOR_NAME in sensor_config.txt)")
     ap.add_argument("--address", help="device address, e.g. 20-16-06-30-31-23")
     ap.add_argument("--channel", type=int, help="RFCOMM channel (default: from SDP, else 1)")
     ap.add_argument("--send", metavar="TEXT", help="send one line and exit")
@@ -140,6 +164,10 @@ def main():
             print(f"{dev.addressString()}  {dev.name()}  ({state})")
         return
 
+    if not args.address:
+        args.name = args.name or configured_name()
+        if args.name is None:
+            sys.exit(NO_NAME_MESSAGE)
     dev = find_device(args.name, args.address)
     if dev is None:
         sys.exit(f"No paired device named {args.name!r}. Pair it in System Settings > "
@@ -166,8 +194,12 @@ def main():
                 print("Type a line and press Enter to send. Ctrl-C or Ctrl-D to quit.",
                       file=sys.stderr)
                 threading.Thread(target=stdin_reader, args=(lines,), daemon=True).start()
+            last_sent = time.time()
             while not delegate.closed:
                 pump(0.05)
+                if time.time() - last_sent >= KEEPALIVE_SECONDS:
+                    send_line(channel, "", "\n")
+                    last_sent = time.time()
                 try:
                     line = lines.get_nowait()
                 except queue.Empty:
@@ -175,6 +207,7 @@ def main():
                 if line is None:
                     break
                 send_line(channel, line, eol)
+                last_sent = time.time()
             if delegate.closed:
                 print("\n[connection closed by the module]", file=sys.stderr)
     except KeyboardInterrupt:
