@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Name one HC-06 sensor, then put the student starter sketch back on its Mega.
 
-Put the name in teacher/naming_config.txt (SENSOR_NAME = AIIT-07) and save.
+Put the name in teacher/naming_config.txt (replace AIIT-YOURNAME) and save.
 Plug the sensor's Mega in by USB (nothing connected to the HC-06 over
 Bluetooth), then from the project folder:
 
     .venv/bin/python teacher/name_sensor.py
-    .venv/bin/python teacher/name_sensor.py AIIT-07          # override the config
+    .venv/bin/python teacher/name_sensor.py AIIT-YOURNAME    # override the config
     .venv/bin/python teacher/name_sensor.py --port /dev/cu.usbmodem1101
     .venv/bin/python teacher/name_sensor.py --no-starter
 
@@ -84,7 +84,7 @@ def main():
     args = ap.parse_args()
 
     args.name = args.name or hc06.configured_name(CONFIG)
-    if args.name is None:
+    if args.name in (None, hc06.PLACEHOLDER_NAME):
         sys.exit("No name yet. Open teacher/naming_config.txt, replace "
                  f"{hc06.PLACEHOLDER_NAME} with the sensor's new name, and save (Cmd-S).")
     if not NAME_RE.match(args.name):

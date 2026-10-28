@@ -58,7 +58,7 @@ whether to use this environment, you can click **Yes** or ignore it.
 ## Every new sensor
 
 ### 3. Put your sensor's name in the config file
-Your sensor's name is on its label, like `AIIT-07`. Your teacher set it, so
+Your sensor's name is on its label. Your teacher set it, so
 you don't rename the sensor yourself.
 
 1. In VS Code's file list, open `sensor_config.txt`.
@@ -69,7 +69,7 @@ Then check it:
 ```bash
 grep SENSOR_NAME sensor_config.txt
 ```
-✅ Look for: `SENSOR_NAME = AIIT-07` with **your** sensor's name.
+✅ Look for: `SENSOR_NAME = AIIT-YOURNAME`, but with **your** sensor's name.
 
 `hc06.py` and `controller.py` read the name from this file, so you never
 type it in a command. If you get a different sensor, change the name here.
@@ -114,7 +114,7 @@ If macOS asks to let **Visual Studio Code** use Bluetooth, click **Allow**
 and run the command again. If it asks for a PIN, enter `1234` (or `0000`).
 
 ✅ Look for: a line with your sensor's name, like
-`98-d3-…  AIIT-07  (not connected)`.
+`98-d3-…  AIIT-YOURNAME  (not connected)`, with your sensor's name.
 
 If the command just hangs: **System Settings → Privacy & Security →
 Bluetooth → Visual Studio Code** on, quit VS Code (`⌘Q`), reopen the project,
@@ -142,7 +142,7 @@ Other commands:
 A window opens with a D-pad and **K**/**L** buttons. It connects to the
 sensor named in `sensor_config.txt` (step 3).
 
-✅ Look for: `Opening the controller for AIIT-07` (your name) in the terminal, then
+✅ Look for: `Opening the controller for AIIT-YOURNAME` (your sensor's name) in the terminal, then
 `Connected. Press a button.` in green in the window. Hold **K**: the window
 shows `→ K`, then `← Pin 2 HIGH`. Let go: `→ K RELEASED`, then `← Pin 2 LOW`.
 

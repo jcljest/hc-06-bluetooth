@@ -165,10 +165,10 @@ Controller window, starter sketch, and README step 9 written. Verified by
 compiling and by scripted tests. Not run on hardware.
 
 ### Current State
-ready_for_review. Committed on branch `controller-and-teacher-naming`
-(not merged to main, not pushed).
+ready_for_review. Merged to main and pushed 2026-10-28 (owner request).
+The hardware acceptance criterion is still open, so not `done`.
 
 ### Next Action
 Owner, on hardware: (1) put AIIT-10-laij in sensor_config.txt locally (don't
 commit), upload the starter, run controller.py, hold K, leave idle 2 min;
-(2) name one sensor with teacher/name_sensor.py. Then merge to main and push.
+(2) name one sensor with teacher/name_sensor.py.

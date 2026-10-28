@@ -6,7 +6,7 @@
 // Bluetooth, which is always true right after power-up.
 
 #include <Arduino.h>
-#include "sensor_name.h"  // #define SENSOR_NAME "AIIT-07"
+#include "sensor_name.h"  // #define SENSOR_NAME "AIIT-YOURNAME"
 
 const long BT_BAUD = 9600;    // HC-06 factory speed
 const long USB_BAUD = 115200;
