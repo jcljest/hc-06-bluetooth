@@ -1,7 +1,7 @@
 ---
 id: 2026-10-28-student-kit-gamepad-ui
 module: student-kit
-status: ready_for_review
+status: done
 health: green
 owner_session: null
 worktree: /Users/laij/Projects/hc-06-bluetooth
@@ -50,7 +50,9 @@ the work they do is in `AIIT_Bluetooth.ino`.
 - [x] The starter sketch compiles (`.venv/bin/pio run` SUCCESS) and responds
       to the controller buttons (compile only; not run on hardware).
 - [x] README step 9 has copy-paste command + "Look for" text (fresh-Mac rules).
-- [ ] Hardware test: the buttons work on a real HC-06 (owner).
+- [x] ~~Hardware test: the buttons work on a real HC-06 (owner).~~ Waived by the
+      owner 2026-10-28 ("assume the hardware will work as intended"). NOT verified:
+      controller.py on a sensor, automatic keepalive, teacher/name_sensor.py.
 
 ## Plan
 
@@ -165,10 +167,10 @@ Controller window, starter sketch, and README step 9 written. Verified by
 compiling and by scripted tests. Not run on hardware.
 
 ### Current State
-ready_for_review. Merged to main and pushed 2026-10-28 (owner request).
-The hardware acceptance criterion is still open, so not `done`.
+done. Merged to main and pushed 2026-10-28. The owner waived the hardware
+criterion; the hardware paths above are unverified.
 
 ### Next Action
-Owner, on hardware: (1) put AIIT-10-laij in sensor_config.txt locally (don't
-commit), upload the starter, run controller.py, hold K, leave idle 2 min;
-(2) name one sensor with teacher/name_sensor.py.
+None. If a hardware problem shows up in class, open a new sprint: start
+with the controller keepalive and teacher/name_sensor.py, which never ran on
+a sensor.

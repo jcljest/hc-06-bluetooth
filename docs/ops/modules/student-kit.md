@@ -49,13 +49,14 @@ the terminal (`hc06.py`) or a game-controller window (`controller.py`).
 
 **Yellow**
 
-Reason: the link works on hardware with hc06.py (owner, 2026-10-28). The
-automatic keepalive and controller.py haven't been confirmed on hardware yet.
+Reason: the link works on hardware with hc06.py (owner, 2026-10-28). The owner
+waived hardware tests for the automatic keepalive, controller.py and
+teacher/name_sensor.py, so those are unverified.
 
 ## Active Sprints
 
 - 2026-10-16-student-kit-one-file-mac
-- 2026-10-28-student-kit-gamepad-ui
+- (done) 2026-10-28-student-kit-gamepad-ui
 
 ## Risks
 
